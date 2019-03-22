@@ -16,5 +16,32 @@ namespace ClipRestore
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if(this.WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                notifyIcon.Visible = true;
+            }
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
+        }
+
+        private void tmrClipCheck_Tick(object sender, EventArgs e)
+        {
+            txtClip.Text = Clipboard.GetText();
+            imgClip.Image = Clipboard.GetImage();
+        }
     }
 }
