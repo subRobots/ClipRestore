@@ -137,6 +137,7 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "History";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // label3
             // 
@@ -154,6 +155,7 @@
             this.lstHistory.Name = "lstHistory";
             this.lstHistory.Size = new System.Drawing.Size(173, 238);
             this.lstHistory.TabIndex = 3;
+            this.lstHistory.SelectedIndexChanged += new System.EventHandler(this.lstHistory_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -179,6 +181,7 @@
             this.imgPreview.Size = new System.Drawing.Size(163, 124);
             this.imgPreview.TabIndex = 6;
             this.imgPreview.TabStop = false;
+            this.imgPreview.Visible = false;
             // 
             // Form1
             // 

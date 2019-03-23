@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Reflection;
 
 namespace ClipRestore
 {
     public partial class Form1 : Form
     {
+        string appPath = Environment.CurrentDirectory;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +24,7 @@ namespace ClipRestore
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            loadHistory();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -58,6 +61,7 @@ namespace ClipRestore
             {
                 txtClip.Text = tempText;
                 saveText();
+                loadHistory();
             }
             else
             {
@@ -68,23 +72,56 @@ namespace ClipRestore
             if (tempImage != imgClip.Image)
             {
                 imgClip.Image = tempImage;
-                
+                loadHistory();
+
             }
             else
             {
                 imgClip.Image = imgClip.Image;
             }
 
+            
         }
 
         private void saveText()
         {
-            //DateTime CurrentDate;
-            // CurrentDate = DateTime.Now;
+      
             string theDate = DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
-            // @"C:\" + 
-            File.WriteAllText(theDate + ".txt", txtClip.Text);
+            // @"C:\"  
+            File.WriteAllText(appPath + "\\history\\" +  theDate + ".txt", txtClip.Text);
+        }
+
+        private void saveImage()
+        {
+
+        }
+
+        private void loadHistory()
+        {
+            lstHistory.Items.Clear();
+            string[] txtHistory = Directory.GetFileSystemEntries(appPath + "\\history\\", "*.txt");
+            
+            lstHistory.Items.AddRange(txtHistory);
+        }
+
+        private void lstHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string text = File.ReadAllText(lstHistory.SelectedItem.ToString());
+                txtPreview.Text = text;
+            }
+
+            catch
+            {
+                Console.Write("Could not load text");
+            }
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
