@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace ClipRestore
 {
@@ -40,8 +42,49 @@ namespace ClipRestore
 
         private void tmrClipCheck_Tick(object sender, EventArgs e)
         {
-            txtClip.Text = Clipboard.GetText();
-            imgClip.Image = Clipboard.GetImage();
+            // txtClip.Text = Clipboard.GetText();
+            // imgClip.Image = Clipboard.GetImage();
+
+            checkClipboard();
+        }
+
+        private void checkClipboard()
+        {
+            string tempText = Clipboard.GetText();
+            Image tempImage = Clipboard.GetImage();
+
+            // Text check
+            if (tempText != txtClip.Text) 
+            {
+                txtClip.Text = tempText;
+                saveText();
+            }
+            else
+            {
+                txtClip.Text = txtClip.Text;
+            }
+
+            // Image check
+            if (tempImage != imgClip.Image)
+            {
+                imgClip.Image = tempImage;
+                
+            }
+            else
+            {
+                imgClip.Image = imgClip.Image;
+            }
+
+        }
+
+        private void saveText()
+        {
+            //DateTime CurrentDate;
+            // CurrentDate = DateTime.Now;
+            string theDate = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+
+            // @"C:\" + 
+            File.WriteAllText(theDate + ".txt", txtClip.Text);
         }
     }
 }
