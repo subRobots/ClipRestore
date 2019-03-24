@@ -39,11 +39,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lstHistory = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtPreview = new System.Windows.Forms.TextBox();
             this.imgPreview = new System.Windows.Forms.PictureBox();
+            this.txtPreview = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lstHistory = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgClip)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -139,23 +139,23 @@
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
-            // label3
+            // imgPreview
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 10);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Clipboard History:";
+            this.imgPreview.Location = new System.Drawing.Point(189, 27);
+            this.imgPreview.Name = "imgPreview";
+            this.imgPreview.Size = new System.Drawing.Size(163, 124);
+            this.imgPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgPreview.TabIndex = 6;
+            this.imgPreview.TabStop = false;
+            this.imgPreview.Visible = false;
             // 
-            // lstHistory
+            // txtPreview
             // 
-            this.lstHistory.FormattingEnabled = true;
-            this.lstHistory.Location = new System.Drawing.Point(9, 27);
-            this.lstHistory.Name = "lstHistory";
-            this.lstHistory.Size = new System.Drawing.Size(173, 238);
-            this.lstHistory.TabIndex = 3;
-            this.lstHistory.SelectedIndexChanged += new System.EventHandler(this.lstHistory_SelectedIndexChanged);
+            this.txtPreview.Location = new System.Drawing.Point(188, 27);
+            this.txtPreview.Multiline = true;
+            this.txtPreview.Name = "txtPreview";
+            this.txtPreview.Size = new System.Drawing.Size(164, 124);
+            this.txtPreview.TabIndex = 5;
             // 
             // label4
             // 
@@ -166,22 +166,23 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Preview:";
             // 
-            // txtPreview
+            // lstHistory
             // 
-            this.txtPreview.Location = new System.Drawing.Point(188, 27);
-            this.txtPreview.Multiline = true;
-            this.txtPreview.Name = "txtPreview";
-            this.txtPreview.Size = new System.Drawing.Size(164, 124);
-            this.txtPreview.TabIndex = 5;
+            this.lstHistory.FormattingEnabled = true;
+            this.lstHistory.Location = new System.Drawing.Point(9, 27);
+            this.lstHistory.Name = "lstHistory";
+            this.lstHistory.Size = new System.Drawing.Size(173, 238);
+            this.lstHistory.TabIndex = 3;
+            this.lstHistory.SelectedIndexChanged += new System.EventHandler(this.lstHistory_SelectedIndexChanged);
             // 
-            // imgPreview
+            // label3
             // 
-            this.imgPreview.Location = new System.Drawing.Point(189, 27);
-            this.imgPreview.Name = "imgPreview";
-            this.imgPreview.Size = new System.Drawing.Size(163, 124);
-            this.imgPreview.TabIndex = 6;
-            this.imgPreview.TabStop = false;
-            this.imgPreview.Visible = false;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Clipboard History:";
             // 
             // Form1
             // 

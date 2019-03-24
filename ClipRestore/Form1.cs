@@ -72,7 +72,8 @@ namespace ClipRestore
             if (tempImage != imgClip.Image)
             {
                 imgClip.Image = tempImage;
-                loadHistory();
+                //saveImage(); Temporarily commented out as need to create compare image function.
+                //loadHistory();
 
             }
             else
@@ -85,22 +86,21 @@ namespace ClipRestore
 
         private void saveText()
         {
-      
             string theDate = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-
             // @"C:\"  
             File.WriteAllText(appPath + "\\history\\" +  theDate + ".txt", txtClip.Text);
         }
 
-        private void saveImage()
+        private void saveImage() 
         {
-
+            string theDate = DateTime.Now.ToString("yyyyMMddHHmmssfff"); // Timestamp for filename
+            imgClip.Image.Save(appPath + "\\history\\" + theDate + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
         private void loadHistory()
         {
             lstHistory.Items.Clear();
-            string[] txtHistory = Directory.GetFileSystemEntries(appPath + "\\history\\", "*.txt");
+            string[] txtHistory = Directory.GetFileSystemEntries(appPath + "\\history\\", "*.*"); // Add all files in 'History' Folder.
             
             lstHistory.Items.AddRange(txtHistory);
         }
@@ -109,8 +109,26 @@ namespace ClipRestore
         {
             try
             {
-                string text = File.ReadAllText(lstHistory.SelectedItem.ToString());
-                txtPreview.Text = text;
+               
+                string text = File.ReadAllText(lstHistory.SelectedItem.ToString());                
+                
+                if(lstHistory.SelectedItem.ToString().Contains(".txt"))
+                {
+                    txtPreview.Visible = true;
+                    imgPreview.Visible = false;
+                    txtPreview.Text = text;
+                }
+
+                if (lstHistory.SelectedItem.ToString().Contains(".jpg"))
+                {
+                    txtPreview.Visible = false;
+                    imgPreview.Visible = true;
+                    imgPreview.ImageLocation = lstHistory.SelectedItem.ToString();
+                }
+                else
+                {
+                    Console.WriteLine("Unsupported filetype");
+                }
             }
 
             catch
