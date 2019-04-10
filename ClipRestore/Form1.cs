@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Reflection;
-
-
+using System.Diagnostics;
 
 namespace ClipRestore
 {
@@ -31,6 +30,8 @@ namespace ClipRestore
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            System.IO.Directory.CreateDirectory(appPath + "\\history\\");
+
             loadHistory();
             _clipViewer = SetClipboardViewer(this.Handle);
         }
@@ -169,6 +170,35 @@ namespace ClipRestore
         private void tabPage2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.Start(@appPath + "\\history\\");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+ 
+            {
+                if (MessageBox.Show("Clean History Folder", "Are you sure you wish to delete all files in history folder?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    string[] historyFiles = Directory.GetFiles(appPath + "\\history\\");
+
+                    foreach (string file in historyFiles)
+                    {
+                        File.Delete(file);
+                    }
+
+                    loadHistory();
+                }
+                else
+                {
+                    Console.WriteLine("No files were deleted...");
+                }
+
+
+            }
         }
     }
 }
