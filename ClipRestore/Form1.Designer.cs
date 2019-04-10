@@ -60,7 +60,6 @@
             // 
             // tmrClipCheck
             // 
-            this.tmrClipCheck.Enabled = true;
             this.tmrClipCheck.Tick += new System.EventHandler(this.tmrClipCheck_Tick);
             // 
             // txtClip

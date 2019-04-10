@@ -11,11 +11,18 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Reflection;
 
+
+
 namespace ClipRestore
 {
     public partial class Form1 : Form
     {
         string appPath = Environment.CurrentDirectory;
+        
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SetClipboardViewer(IntPtr newVIEW);
+        private IntPtr _clipViewer;
 
         public Form1()
         {
@@ -25,8 +32,21 @@ namespace ClipRestore
         private void Form1_Load(object sender, EventArgs e)
         {
             loadHistory();
+            _clipViewer = SetClipboardViewer(this.Handle);
         }
 
+        protected override void WndProc(ref System.Windows.Forms.Message message)
+        {
+             switch (message.Msg)
+            {
+                case 0x308:
+                    checkClipboard();
+                    break;
+                default:
+                    base.WndProc(ref message);
+                    break;
+            }
+        }
         private void Form1_Resize(object sender, EventArgs e)
         {
             if(this.WindowState == FormWindowState.Minimized)
@@ -48,7 +68,7 @@ namespace ClipRestore
             // txtClip.Text = Clipboard.GetText();
             // imgClip.Image = Clipboard.GetImage();
 
-            checkClipboard();
+           // checkClipboard();
         }
 
         private void checkClipboard()
@@ -61,7 +81,6 @@ namespace ClipRestore
             {
                 txtClip.Text = tempText;
                 saveText();
-                loadHistory();
             }
             else
             {
@@ -69,6 +88,12 @@ namespace ClipRestore
             }
 
             // Image check
+            imgClip.Image = tempImage;            
+            saveImage();
+
+            //Update History list
+            loadHistory();
+            /* Image check
             if (tempImage != imgClip.Image)
             {
                 imgClip.Image = tempImage;
@@ -79,9 +104,9 @@ namespace ClipRestore
             else
             {
                 imgClip.Image = imgClip.Image;
-            }
+            }*/
 
-            
+
         }
 
         private void saveText()
@@ -94,7 +119,11 @@ namespace ClipRestore
         private void saveImage() 
         {
             string theDate = DateTime.Now.ToString("yyyyMMddHHmmssfff"); // Timestamp for filename
-            imgClip.Image.Save(appPath + "\\history\\" + theDate + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            if (imgClip.Image != null)
+            {
+                imgClip.Image.Save(appPath + "\\history\\" + theDate + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            
         }
 
         private void loadHistory()
